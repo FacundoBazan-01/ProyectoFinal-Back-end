@@ -1,18 +1,13 @@
 const express = require ("express")
 const route = express.Router();
+const {getProducts, postProducts, putProducts, deleteProducts} = require("../controllers/products.controllers")
 
-route.get("/")
+route.get("/", getProducts)
 
-route.post("/",(req, res)=>{
-    res.json("Metodo Post para productos")
-})
+route.post("/", postProducts)
 
-route.put("/",(req, res)=>{
-    res.json("Metodo Put para productos")
-})
+route.put("/", putProducts)
 
-route.delete("/",(req, res)=>{
-    res.json("Metodo Delete para productos")
-})
+route.delete("/", deleteProducts)
 
 module.exports=route
