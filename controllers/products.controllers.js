@@ -1,7 +1,12 @@
 const ProductModel = require("../model/product.schema")
 
-const getProducts = (req, res)=>{
-    res.json("Metodo Get para productos")
+const getProducts = async (req, res)=>{
+    try {
+        const getAllProduct = await ProductModel.find();
+        res.status(200).json({mensaje: "Productos encontrados correctamente", getAllProduct})
+    } catch (error) {
+        res.status(500).json({mensaje: "Server error", error});
+    }
 }
 
 const postProducts = async (req, res)=>{
@@ -15,7 +20,7 @@ const postProducts = async (req, res)=>{
          await newProduct.save();
         res.status(201).json({mensaje:"Producto creado correctamente", newProduct})
     } catch (error) {
-        res.status(500).json({mensaje: "Algun campo esta vacio o es error el formato del dato", error});
+        res.status(500).json({mensaje: "Server error", error});
     }
 
 }
