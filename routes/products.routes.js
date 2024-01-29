@@ -6,8 +6,8 @@ route.get("/", getProducts)
 
 route.post("/", postProducts)
 
-route.put("/", putProducts)
+route.put("/:id", putProducts)
 
-route.delete("/", deleteProducts)
+route.delete("/:id", deleteProducts)
 
 module.exports=route

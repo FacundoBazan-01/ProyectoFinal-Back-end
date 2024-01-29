@@ -22,11 +22,15 @@ const postProducts = async (req, res)=>{
     } catch (error) {
         res.status(500).json({mensaje: "Server error", error});
     }
-
 }
 
-const putProducts= (req, res)=>{
-    res.json("Metodo Put para productos")
+const putProducts= async (req, res)=>{
+    try {
+        const updateProduct = await ProductModel.findByIdAndUpdate({ _id:req.params.id }, req.body, {new: true})
+        res.status(200).json({mensaje: "Producto actualizado correctamente", updateProduct})
+    } catch (error) {
+        res.status(500).json({mensaje: "Server error", error}); 
+    }
 }
 
 const deleteProducts = (req, res)=>{
