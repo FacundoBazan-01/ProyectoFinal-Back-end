@@ -6,10 +6,10 @@ const getProducts = (req, res)=>{
 
 const postProducts = (req, res)=>{
     try {
-        const { titulo, precio, codigo }= req.body
+        const { titulo, precio, codigo }= req.body;
         if(!titulo || !precio || !codigo){
             res.status(500).json({mensaje: "Algun campo esta vacio o es error el formato del dato"});
-            return
+            return;
         }
         const newProduct = new ProductModel(req.body)
         newProduct.save();
@@ -17,7 +17,7 @@ const postProducts = (req, res)=>{
     } catch (error) {
         res.status(500).json({mensaje: "Algun campo esta vacio o es error el formato del dato", error});
     }
-    res.json("Metodo Post para productos")
+
 }
 
 const putProducts= (req, res)=>{

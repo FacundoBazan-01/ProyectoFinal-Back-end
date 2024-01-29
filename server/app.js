@@ -1,4 +1,4 @@
-const express = require ("express")
+const express = require("express")
 
 
 class Server{
@@ -9,7 +9,7 @@ class Server{
     }
 
     middlewars(){
-        this.app.use(express.json)
+        this.app.use(express.json());
     }
 
     routes(){
