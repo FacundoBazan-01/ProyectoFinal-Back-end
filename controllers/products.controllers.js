@@ -1,3 +1,5 @@
+const ProductModel = require("../model/product.schema")
+
 const getProducts = (req, res)=>{
     res.json("Metodo Get para productos")
 }
