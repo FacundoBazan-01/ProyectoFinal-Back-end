@@ -4,7 +4,12 @@ const express = require ("express")
 class Server{
     constructor(){
         this.app=express();
+        this.middlewars();
         this.routes();
+    }
+
+    middlewars(){
+        this.app.use(express.json)
     }
 
     routes(){

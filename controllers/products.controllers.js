@@ -5,6 +5,7 @@ const getProducts = (req, res)=>{
 }
 
 const postProducts = (req, res)=>{
+    
     res.json("Metodo Post para productos")
 }
 
