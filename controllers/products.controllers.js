@@ -33,8 +33,13 @@ const putProducts= async (req, res)=>{
     }
 }
 
-const deleteProducts = (req, res)=>{
-    res.json("Metodo Delete para productos")
+const deleteProducts = async (req, res)=>{
+    try {
+        const deleteProduct = await ProductModel.findByIdAndDelete({ _id: req.params.id})
+        res.status(200).json({mensaje:"Producto eliminado correctamente"})
+    } catch (error) {
+        res.status(500).json({mensaje: "Server error", error}); 
+    }
 }
 
 module.exports={getProducts, postProducts, putProducts, deleteProducts}
