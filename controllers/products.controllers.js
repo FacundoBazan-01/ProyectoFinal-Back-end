@@ -9,6 +9,15 @@ const getProducts = async (req, res)=>{
     }
 }
 
+const getOneProduct = async (req, res)=>{
+    try {
+        const getProduct = await ProductModel.findOne({_id: req.params.id});
+        res.status(200).json({mensaje: "Producto encontrado correctamente", getProduct})
+    } catch (error) {
+        res.status(500).json({mensaje: "Server error", error});
+    }
+}
+
 const postProducts = async (req, res)=>{
     try {
         const { titulo, precio, codigo }= req.body;
@@ -42,4 +51,4 @@ const deleteProducts = async (req, res)=>{
     }
 }
 
-module.exports={getProducts, postProducts, putProducts, deleteProducts}
+module.exports={getProducts, getOneProduct, postProducts, putProducts, deleteProducts}
