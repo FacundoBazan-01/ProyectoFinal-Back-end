@@ -1,7 +1,13 @@
 const UserModel = require("../model/user.schema")
 
-const getUsers =  (req, res)=>{
-    res.json("Metodo Get para productos")
+const getUsers = async (req, res)=>{
+    try {
+        const getAllUser = await UserModel.find();
+        res.status(200).json({mensaje:"Usuarios encontrados exitosamente", getAllUser})
+        
+    } catch (error) {
+    res.status(500).json({mensaje: "Server error", error});
+    }
 }
 
 const postUsers = async (req, res)=>{
