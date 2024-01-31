@@ -1,8 +1,10 @@
 const express = require ("express")
 const route = express.Router();
-const {getUsers, postUsers, putUsers, deleteUsers} = require("../controllers/users.controllers")
+const {getUsers,getOneUser, postUsers, putUsers, deleteUsers, } = require("../controllers/users.controllers")
 
 route.get("/", getUsers)
+
+route.get("/:id", getOneUser)
 
 route.post("/", postUsers)
 
