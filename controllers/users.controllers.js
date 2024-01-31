@@ -36,8 +36,18 @@ const putUsers = async (req, res)=>{
     }
 }
 
-const deleteUsers = (req, res)=>{
-    res.json("Metodo Get para productos")
+const deleteUsers = async (req, res)=>{
+   try {
+    const userExist = await UserModel.findOne({_id: req.params.id})
+    if(!userExist){
+        res.status(400).json({mensaje:"Este usuario ya fue eliminado"})
+        return;
+    }
+    const deleteUser = await UserModel.findByIdAndDelete({_id: req.params.id});
+    res.status(200).json({mensaje:"Usuario eliminado correctamente"})
+   } catch (error) {
+    res.status(500).json({mensaje: "Server error", error});
+   }
 }
 
 module.exports = {getUsers, postUsers, putUsers, deleteUsers}
