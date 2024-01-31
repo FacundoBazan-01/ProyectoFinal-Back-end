@@ -6,8 +6,8 @@ route.get("/", getUsers)
 
 route.post("/", postUsers)
 
-route.put("/", putUsers)
+route.put("/:id", putUsers)
 
-route.delete("/", deleteUsers)
+route.delete("/:id", deleteUsers)
 
 module.exports=route

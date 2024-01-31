@@ -27,8 +27,13 @@ const postUsers = async (req, res)=>{
    }
 }
 
-const putUsers = (req, res)=>{
-    res.json("Metodo Get para productos")
+const putUsers = async (req, res)=>{
+    try {
+    const updateUser = await UserModel.findByIdAndUpdate({_id: req.params.id}, req.body, {new: true});
+    res.status(200).json({mensaje:"Usuario actualizado correctamente", updateUser})
+    } catch (error) {
+    res.status(500).json({mensaje: "Server error", error});   
+    }
 }
 
 const deleteUsers = (req, res)=>{
