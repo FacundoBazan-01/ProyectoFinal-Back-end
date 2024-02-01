@@ -1,4 +1,5 @@
 const UserModel = require("../model/user.schema")
+const bcryptjs = require("bcryptjs")
 
 const getUsers = async (req, res)=>{
     try {
@@ -21,13 +22,15 @@ const getOneUser = async (req, res)=>{
 
 const postUsers = async (req, res)=>{
    try {
-        const {nombreUsuario} = req.body;
+        const {nombreUsuario, contrasenia} = req.body;
         const userExist = await UserModel.findOne({nombreUsuario})
         if(userExist){
             res.status(400).json({mensaje:"Usuario ya existente"})
             return;
         }
         const newUser = new UserModel(req.body)
+        let salt = bcryptjs.genSaltSync(10);
+        newUser.contrasenia = bcryptjs.hashSync(contrasenia, salt);
         await newUser.save();
         res.status(201).json({mensaje: "Usuario creado correctamente", newUser});
 
@@ -59,4 +62,23 @@ const deleteUsers = async (req, res)=>{
    }
 }
 
-module.exports = {getUsers,getOneUser, postUsers, putUsers, deleteUsers}
+const loginUser = async (req, res)=>{
+    try {
+        const {nombreUsuario, contrasenia} = req.body;
+        const userExist = await UserModel.findOne({nombreUsuario})
+        if(!userExist){
+            res.status(400).json({mensaje:"Usuario no existente"})
+            return;
+        }
+        const corroboracionContrasenia = bcryptjs.compare(contrasenia, userExist.contrasenia) 
+        if(!corroboracionContrasenia){
+            res.status(400).json({mensaje:"Las contracenias no coinciden"})
+            return; 
+        }
+        res.status(200).json({mensaje:"Usuario logueado"})
+    } catch (error) {
+        res.status(500).json({mensaje: "Server error", error});
+    }
+}
+
+module.exports = {getUsers,getOneUser, postUsers, putUsers, deleteUsers, loginUser}
