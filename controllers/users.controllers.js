@@ -1,5 +1,6 @@
-const UserModel = require("../model/user.schema")
-const bcryptjs = require("bcryptjs")
+const UserModel = require("../model/user.schema");
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const getUsers = async (req, res)=>{
     try {
@@ -70,12 +71,18 @@ const loginUser = async (req, res)=>{
             res.status(400).json({mensaje:"Usuario no existente"})
             return;
         }
-        const corroboracionContrasenia = bcryptjs.compare(contrasenia, userExist.contrasenia) 
+        const corroboracionContrasenia = await bcryptjs.compare(contrasenia, userExist.contrasenia) 
         if(!corroboracionContrasenia){
             res.status(400).json({mensaje:"Las contracenias no coinciden"})
             return; 
         }
-        res.status(200).json({mensaje:"Usuario logueado"})
+        const payload ={
+            id:userExist._id,
+            role:userExist.role
+        }
+        const token= jwt.sign(payload,process.env.SECRET_KEY)
+       
+        res.status(200).json({mensaje:"Usuario logueado", token})
     } catch (error) {
         res.status(500).json({mensaje: "Server error", error});
     }
