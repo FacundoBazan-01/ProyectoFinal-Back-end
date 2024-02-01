@@ -44,6 +44,10 @@ const putProducts= async (req, res)=>{
 
 const deleteProducts = async (req, res)=>{
     try {
+        const productExist = await ProductModel.findOne({_id: req.params.id});
+        if(!productExist){
+            res.status(400).json({mensaje:"Este producto ya fue eliminado"})
+        }
         const deleteProduct = await ProductModel.findByIdAndDelete({ _id: req.params.id})
         res.status(200).json({mensaje:"Producto eliminado correctamente"})
     } catch (error) {
