@@ -3,7 +3,7 @@ const {getUsers,getOneUser, postUsers, putUsers, deleteUsers, loginUser } = requ
 const auth = require("../middlewars/authorization");
 const route = express.Router();
 
-route.get("/", auth ("admin"), getUsers)
+route.get("/", getUsers)
 
 route.get("/:id", getOneUser)
 

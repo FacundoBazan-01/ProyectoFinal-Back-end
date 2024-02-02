@@ -10,7 +10,7 @@ const auth = (role) => async (req, res, next)=>{
         if(verify && verify.role===role){
             next();
         }else{
-            res.status(500).json({mensaje:"No estas autorizado para realizar esta accion"})
+            res.status(401).json({mensaje:"No estas autorizado para realizar esta accion"})
         }
     } catch (error) {
         res.status(500).json({mensaje: "Server error", error});
