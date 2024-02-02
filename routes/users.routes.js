@@ -1,8 +1,9 @@
 const express = require ("express")
+const {getUsers,getOneUser, postUsers, putUsers, deleteUsers, loginUser } = require("../controllers/users.controllers");
+const auth = require("../middlewars/authorization");
 const route = express.Router();
-const {getUsers,getOneUser, postUsers, putUsers, deleteUsers, loginUser } = require("../controllers/users.controllers")
 
-route.get("/", getUsers)
+route.get("/", auth ("admin"), getUsers)
 
 route.get("/:id", getOneUser)
 
