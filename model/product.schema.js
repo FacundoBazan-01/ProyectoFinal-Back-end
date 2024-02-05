@@ -13,6 +13,9 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
+    imagen: {
+        type: String
+    }
 })
 
 const ProductModel = model("products", ProductSchema)
