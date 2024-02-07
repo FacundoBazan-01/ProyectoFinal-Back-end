@@ -21,8 +21,8 @@ const getOneProduct = async (req, res)=>{
 
 const postProducts = async (req, res)=>{
     try {
-        const { titulo, precio, codigo }= req.body;
-        if(!titulo || !precio || !codigo){
+        const { titulo, precio, descripcion }= req.body;
+        if(!titulo || !precio || !descripcion){
             res.status(500).json({mensaje: "Algun campo esta vacio o es error el formato del dato"});
             return;
         }
